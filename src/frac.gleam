@@ -68,17 +68,9 @@ pub fn from_int(numerator: Int) -> Fraction {
 /// ```
 ///
 pub fn new(numerator numerator: Int, denominator denominator: Int) -> Fraction {
-  case numerator >= 0 {
-    True ->
-      case denominator >= 0 {
-        True -> Fraction(numerator:, denominator:)
-        False -> Fraction(numerator: -numerator, denominator: -denominator)
-      }
-    False ->
-      case denominator >= 0 {
-        True -> Fraction(numerator:, denominator:)
-        False -> Fraction(numerator: -numerator, denominator: -denominator)
-      }
+  case denominator >= 0 {
+    True -> Fraction(numerator:, denominator:)
+    False -> Fraction(numerator: -numerator, denominator: -denominator)
   }
 }
 
