@@ -12,7 +12,6 @@ pub fn main() {
   let result =
     frac.new(1, 2)
     |> frac.add(frac.new(1, 3))
-    |> frac.to_lowest_terms
 
   let assert True = result == frac.new(5, 6)
 }

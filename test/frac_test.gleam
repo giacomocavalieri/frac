@@ -97,43 +97,36 @@ pub fn approximate_read_number_4_test() {
 
 pub fn to_lowest_terms_1_test() {
   frac.new(4, 2)
-  |> frac.to_lowest_terms
   |> should.equal(frac.new(2, 1))
 }
 
 pub fn to_lowest_terms_2_test() {
   frac.new(13, 8)
-  |> frac.to_lowest_terms
   |> should.equal(frac.new(13, 8))
 }
 
 pub fn to_lowest_terms_3_test() {
   frac.new(17, 34)
-  |> frac.to_lowest_terms
   |> should.equal(frac.new(1, 2))
 }
 
 pub fn to_lowest_terms_4_test() {
   frac.new(1, 11)
-  |> frac.to_lowest_terms
   |> should.equal(frac.new(1, 11))
 }
 
 pub fn to_lowest_terms_5_test() {
   frac.new(0, 11)
-  |> frac.to_lowest_terms
   |> should.equal(frac.new(0, 1))
 }
 
 pub fn to_lowest_terms_6_test() {
   frac.new(11, 0)
-  |> frac.to_lowest_terms
   |> should.equal(frac.new(1, 0))
 }
 
 pub fn to_lowest_terms_7_test() {
   frac.new(0, 0)
-  |> frac.to_lowest_terms
   |> should.equal(frac.new(0, 0))
 }
 
@@ -170,28 +163,24 @@ pub fn multiply_does_not_reduce_to_lowest_terms_test() {
 pub fn add_1_test() {
   frac.new(2, 4)
   |> frac.add(frac.new(3, 4))
-  |> frac.to_lowest_terms
   |> should.equal(frac.new(5, 4))
 }
 
 pub fn add_2_test() {
   frac.new(2, 4)
   |> frac.add(frac.new(3, 7))
-  |> frac.to_lowest_terms
   |> should.equal(frac.new(13, 14))
 }
 
 pub fn add_3_test() {
   frac.new(2, 11)
   |> frac.add(frac.new(3, 17))
-  |> frac.to_lowest_terms
   |> should.equal(frac.new(67, 187))
 }
 
 pub fn add_4_test() {
   frac.new(2, 4)
   |> frac.add(frac.new(3, 8))
-  |> frac.to_lowest_terms
   |> should.equal(frac.new(7, 8))
 }
 
@@ -204,35 +193,30 @@ pub fn add_does_not_reduce_to_lowest_term_test() {
 pub fn subtract_1_test() {
   frac.new(2, 4)
   |> frac.subtract(frac.new(3, 4))
-  |> frac.to_lowest_terms
   |> should.equal(frac.new(-1, 4))
 }
 
 pub fn subtract_2_test() {
   frac.new(1, 4)
   |> frac.subtract(frac.new(3, 7))
-  |> frac.to_lowest_terms
   |> should.equal(frac.new(-5, 28))
 }
 
 pub fn subtract_3_test() {
   frac.new(2, 11)
   |> frac.subtract(frac.new(3, 17))
-  |> frac.to_lowest_terms
   |> should.equal(frac.new(1, 187))
 }
 
 pub fn subtract_4_test() {
   frac.new(2, 4)
   |> frac.subtract(frac.new(3, 8))
-  |> frac.to_lowest_terms
   |> should.equal(frac.new(1, 8))
 }
 
 pub fn subtract_5_test() {
   frac.new(1, 4)
   |> frac.subtract(frac.new(5, 4))
-  |> frac.to_lowest_terms
   |> should.equal(frac.new(-1, 1))
 }
 

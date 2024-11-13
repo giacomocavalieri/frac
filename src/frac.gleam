@@ -6,7 +6,7 @@
 //// |-------------------------------|------------------------------------------------------------------------------|
 //// | create a fraction             | [new](#new), [from_int](#from_int), [approximate](#approximate)              |
 //// | get the numerator/denominator | [numerator](#numerator), [denominator](#denominator)                         |
-//// | simplify a fraction           | [to_lowest_terms](#to_lowest_terms), [to_mixed_numbers](#to_mixed_numbers)   |
+//// | simplify a fraction           | [to_mixed_numbers](#to_mixed_numbers)                                        |
 //// | combine fractions together    | [add](#add), [subtract](#subtract), [multiply](#multiply), [divide](#divide) |
 //// | turn a fraction into a float  | [to_float](#to_float)                                                        |
 //// | compare fractions             | [compare](#compare)                                                          |
@@ -33,8 +33,8 @@ pub opaque type Fraction {
 /// ## Examples
 ///
 /// ```gleam
-/// assert to_float(Fraction(3, 2)) == 1.5
-/// assert to_float(Fraction(2, 0)) == 0.0
+/// assert to_float(new(3, 2)) == 1.5
+/// assert to_float(new(2, 0)) == 0.0
 /// ```
 ///
 pub fn to_float(fraction: Fraction) -> Float {
@@ -69,9 +69,16 @@ pub fn from_int(numerator: Int) -> Fraction {
 ///
 pub fn new(numerator numerator: Int, denominator denominator: Int) -> Fraction {
   case denominator >= 0 {
-    True -> Fraction(numerator:, denominator:)
-    False -> Fraction(numerator: -numerator, denominator: -denominator)
+    True -> to_lowest_terms(numerator, denominator)
+    False -> to_lowest_terms(-numerator, -denominator)
   }
+}
+
+fn to_lowest_terms(numerator: Int, denominator: Int) -> Fraction {
+  let gcd = gcd(numerator, denominator)
+  let numerator = numerator / gcd
+  let denominator = denominator / gcd
+  Fraction(numerator:, denominator:)
 }
 
 /// Approximates a float into a simple fraction whose denominator is at most
@@ -133,24 +140,6 @@ pub fn denominator(fraction: Fraction) -> Int {
 
 // --- SIMPLIFYING FRACTIONS ---------------------------------------------------
 
-/// Reduces a fraction to its
-/// [lowest terms](https://en.wikipedia.org/wiki/Irreducible_fraction).
-///
-/// ## Examples
-///
-/// ```gleam
-/// assert to_lowest_terms(new(2, 4)) == new(1, 3)
-/// assert to_lowest_terms(new(6, 4)) == new(3, 2)
-/// ```
-///
-pub fn to_lowest_terms(fraction: Fraction) -> Fraction {
-  let Fraction(numerator:, denominator:) = fraction
-  let gcd = gcd(numerator, denominator)
-  let numerator = numerator / gcd
-  let denominator = denominator / gcd
-  new(numerator:, denominator:)
-}
-
 /// Turns the fraction into a
 /// [mixed number](https://en.wikipedia.org/wiki/Fraction#Mixed_numbers): that
 /// is an integer and a
@@ -160,7 +149,7 @@ pub fn to_lowest_terms(fraction: Fraction) -> Fraction {
 /// ## Examples
 ///
 /// ```gleam
-/// assert to_mixed_numbers(Fraction(11, 4)) == #(2, Fraction(3, 4))
+/// assert to_mixed_numbers(new(11, 4)) == #(2, new(3, 4))
 /// // 2 + 3/4 is equal to 11/4
 /// ```
 ///
@@ -176,13 +165,10 @@ pub fn to_mixed_numbers(fraction: Fraction) -> #(Int, Fraction) {
 
 /// Divides one fraction by another.
 ///
-/// > Note that the result is not reduced to its lowest terms, if you need that
-/// > you can use the [`fraction.to_lowest_terms`](#to_lowest_terms) function.
-///
 /// ## Examples
 ///
 /// ```gleam
-/// assert divide(new(2, 4), new(1, 3)) == new(6, 4)
+/// assert divide(new(2, 4), new(1, 3)) == new(3, 2)
 /// ```
 ///
 pub fn divide(one: Fraction, by other: Fraction) -> Fraction {
@@ -194,13 +180,10 @@ pub fn divide(one: Fraction, by other: Fraction) -> Fraction {
 
 /// Multiplies one fraction by another.
 ///
-/// > Note that the result is not reduced to its lowest terms, if you need that
-/// > you can use the [`fraction.to_lowest_terms`](#to_lowest_terms) function.
-///
 /// ## Examples
 ///
 /// ```gleam
-/// assert multiply(new(1, 2), by: new(4, 5)) == new(4, 10)
+/// assert multiply(new(1, 2), by: new(4, 5)) == new(2, 5)
 /// ```
 ///
 pub fn multiply(one: Fraction, by other: Fraction) -> Fraction {
@@ -212,14 +195,10 @@ pub fn multiply(one: Fraction, by other: Fraction) -> Fraction {
 
 /// Adds two fractions together.
 ///
-/// > Note that the result is not reduced to its lowest terms, if you need that
-/// > you can use the [`fraction.to_lowest_terms`](#to_lowest_terms) function.
-///
 /// ## Examples
 ///
 /// ```gleam
-/// let summed = sum(new(2, 4), new(3, 4))
-/// assert to_lowest_terms(summed) == new(5, 4)
+/// assert sum(new(2, 4), new(3, 4)) == new(5, 4)
 /// ```
 ///
 pub fn add(one: Fraction, other: Fraction) -> Fraction {
@@ -236,14 +215,10 @@ pub fn add(one: Fraction, other: Fraction) -> Fraction {
 
 /// Subtracts one fraction from another.
 ///
-/// > Note that the result is not reduced to its lowest terms, if you need that
-/// > you can use the [`fraction.to_lowest_terms`](#to_lowest_terms) function.
-///
 /// ## Examples
 ///
 /// ```gleam
-/// let subtracted = subtract(new(2, 4), new(3, 4))
-/// assert to_lowest_terms(subtracted) == new(-1, 4)
+/// assert subtract(new(2, 4), new(3, 4)) == new(-1, 4)
 /// ```
 ///
 pub fn subtract(one: Fraction, other: Fraction) -> Fraction {
