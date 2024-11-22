@@ -104,7 +104,10 @@ pub fn approximate(from float: Float, max_denominator limit: Int) -> Fraction {
   let x = { scale * scale } / { x - a * scale }
   let b = x / scale
 
-  factors(x, b, a * b + 1, b, a, 1, limit, scale)
+  case x {
+    0 -> from_int(a)
+    _ -> factors(x, b, a * b + 1, b, a, 1, limit, scale)
+  }
 }
 
 fn factors(x, prev, n1, d1, n2, d2, max_d, scale) {

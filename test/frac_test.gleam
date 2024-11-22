@@ -95,6 +95,16 @@ pub fn approximate_read_number_4_test() {
   |> should.equal(frac.new(13, 8))
 }
 
+pub fn approximate_whole_number_1_test() {
+  frac.approximate(3.0, 1000)
+  |> should.equal(frac.new(3, 1))
+}
+
+pub fn approximate_whole_number_2_test() {
+  frac.approximate(4.0, 1000)
+  |> should.equal(frac.new(4, 1))
+}
+
 pub fn to_lowest_terms_1_test() {
   frac.new(4, 2)
   |> should.equal(frac.new(2, 1))
