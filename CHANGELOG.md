@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.0.2 - 2026-10-17
+
+- Fix a bug with `add` and `subtract`.
+
 ## v2.0.1 - 2024-11-22
 
 - Fix a bug with `frac.approximate` when passed in a whole number.

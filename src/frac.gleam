@@ -207,12 +207,10 @@ pub fn multiply(one: Fraction, by other: Fraction) -> Fraction {
 pub fn add(one: Fraction, other: Fraction) -> Fraction {
   let Fraction(numerator: one_num, denominator: one_den) = one
   let Fraction(numerator: other_num, denominator: other_den) = other
-  let gcd = gcd(one_num, other_num)
 
   new(
-    numerator: { { one_den * other_num } / gcd }
-      + { { other_den * one_num } / gcd },
-    denominator: { one_den * other_den } / gcd,
+    numerator: one_num * other_den + other_num * one_den,
+    denominator: one_den * other_den,
   )
 }
 
@@ -227,11 +225,10 @@ pub fn add(one: Fraction, other: Fraction) -> Fraction {
 pub fn subtract(one: Fraction, other: Fraction) -> Fraction {
   let Fraction(numerator: one_num, denominator: one_den) = one
   let Fraction(numerator: other_num, denominator: other_den) = other
-  let gcd = gcd(one_num, other_num)
+
   new(
-    numerator: { { other_den * one_num } / gcd }
-      - { { one_den * other_num } / gcd },
-    denominator: one_den * other_den / gcd,
+    numerator: one_num * other_den - other_num * one_den,
+    denominator: one_den * other_den,
   )
 }
 

@@ -180,3 +180,25 @@ pub fn compare_negative_and_negative_test() {
   assert frac.compare(frac.new(-3, 2), frac.new(-1, 2)) == order.Lt
   assert frac.compare(frac.new(-1, 2), frac.new(-1, 2)) == order.Eq
 }
+
+// https://github.com/giacomocavalieri/frac/issues/1
+
+pub fn frac_addition_test() {
+  assert frac.add(zero(), zero()) == zero()
+}
+
+pub fn frac_addition2_test() {
+  assert frac.add(frac.new(2, 3), frac.new(2, 3)) == frac.new(4, 3)
+}
+
+pub fn frac_subtraction_test() {
+  assert frac.subtract(zero(), zero()) == zero()
+}
+
+pub fn frac_subtraction2_test() {
+  assert frac.subtract(frac.new(2, 3), frac.new(4, 3)) == frac.new(-2, 3)
+}
+
+fn zero() {
+  frac.new(0, 1)
+}
